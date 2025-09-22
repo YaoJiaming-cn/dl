@@ -58,4 +58,3 @@ tup = ('r', 'u', 'n', 'o', 'o', 'b')
 print(id(tup))
 tup = (1,2,3)
 print(id(tup))
-

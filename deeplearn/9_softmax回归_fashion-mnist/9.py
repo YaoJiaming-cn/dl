@@ -3,6 +3,8 @@ import torchvision
 from matplotlib import pyplot as plt
 import time
 import sys
+from torch.utils.data import DataLoader, TensorDataset
+import time
 
 """
 torchvision : 构建机器视觉的
@@ -57,3 +59,19 @@ for i in range(10):
     X.append(mnist_train[i][0])
     y.append(mnist_train[i][1])
 show_fashion_mnist(X, get_fashion_mnist_labels(y))
+
+# win用多进程容易出问题
+batch_size = 256
+if sys.platform.startswith('win'):
+    num_workers = 0  # 0表示不不⽤用额外的进程来加速读取数据
+else:
+    num_workers = 4
+
+train_iter = DataLoader(mnist_train, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+test_iter = DataLoader(mnist_test, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+
+start = time.time()
+for X, y in train_iter:
+    continue
+end  = time.time()
+print('%.2f sec' %(end - start))
